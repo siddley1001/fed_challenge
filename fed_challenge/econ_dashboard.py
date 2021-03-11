@@ -195,10 +195,25 @@ if major_selection == 'Overall Economic Activity':
     nfci = to_df('NFCI', start_date, end_date)
     st.line_chart(nfci)
     st.write('Updates *Weekly*')
+
 if major_selection == 'Labor Market':
     st.header('Labor Market')
 
+    st.subheader('Unemployment Rates (U3 and U6)')
+
+    st.subheader('Labor Force Participation Rates (LFPR)')
+    #split Participation Rates by Race and Age with checkboxes
+    st.subheader('Initial and Continuing Jobless Claims')
+
+    st.subheader('KC Fed Labor Market Conditions: Momentum and Overall Activity')
+
+
 if major_selection == 'Price Level and Interest Rates':
     st.header('Price Level and Interest Rates')
+    st.write("These indicators primarily include the Fed's Tools and Inflation")
+    st.subheader("Federal Reserve's Interest Rates")
+    st.subheader("Federal Reserve's Policy Tools")
+    st.subheader("Yield Curves & Federal Reserve's Balance Sheet")
+    st.subheader('Inflation')
 
-# st.header('This is the App')
+
