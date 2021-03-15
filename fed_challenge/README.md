@@ -28,29 +28,27 @@
       - KC Fed Labor Market Conditions
           - Momentum and Overall Activity
   ## 3. **Fed's Tools and Inflation**:
-      - Federal Reserve Interest Rates
-          - Fed Funds Rate
-          - Nominal Neutral Rate of Interest
-          - Inflation Target
-          - FFR History
+      - Interest Rates
+          - Fed's Funds Rate
+          - EFFR (Lending Rates between Banks)
+          - Discount Rate (Fed's Borrowing Rate)
+          - Reserves
+            - IR on Required Reserves
+            - IR on Excess Reserves
       - Fed's Tools
-          - Discount Rate
-          - Reserve Requirement
           - Open Market Operations
-          - Interest Rate on Excess Reserves (IOER)
-      - Yield Curve and Fed's Balance Sheet
+      - Yield Curves
           - 10yr Treasury Yield
           - 2yr Treasury Yield
           - Spread 10yr/2yr
+      - Fed's Balance Sheet
           - Fed Balance Sheet
-          - SOMA Holding
       - Inflation
-          - CPI, Core CPI
-          - PPI, Core PPI
-          - PCE, Core PCE
-          - Personal Income
-          - Business Inflation Expectation (Atlanta Fed)
-          - Implicit Price Deflator
+          - Inflation Target
+          - Consumer Price Index (CPI)
+          - Producer Price Index (PPI)
+          - Real Personal Consumption Expenditure (PCE)
+          - Real Disposable Income
 ### Data was sourced from the St.Louis FRED's API ![](http://www.aehe.es/wp-content/uploads/2018/06/FRED_logo-300x169.jpg)
 # Streamlit WebApp Demo Coming Soon! ![](https://cdn-images-1.medium.com/max/1024/1*u9U3YjxT9c9A1FIaDMonHw.png)
 - App is Deployed and Hosted by the Streamlit service

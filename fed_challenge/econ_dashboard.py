@@ -31,10 +31,19 @@ econ_dictionary = {
     'LNS11300012': ["16-19yrs LFPR %"], 'LNS11300036': ['20-24yrs LFPR %'] ,'LNS11300060': ['25-54yrs LFPR %'], 'LNS11324230': ['55+yrs LFPR %'],
     'LNS11300003': ['White LFPR %'], 'LNS11300006': ['Black LFPR %'], 'LNS11300009': ['Hispanic LFPR %'], 'LNU01332183': ['Asian LFPR %'],
     'ICSA': ['Initial Jobless Claims'], 'IC4WSA': ['4 wk MA of Initial Claims'], 'CCSA': ['Continued Claims (Insured Unempl.)'], 'CC4WSA': ['4wk MA of Continued Claims'],
-    'FRBKCLMCIM': ['Labor Market Momentum'], 'FRBKCLMCILA': ['Labor Market Level of Activity']
+    'FRBKCLMCIM': ['Labor Market Momentum'], 'FRBKCLMCILA': ['Labor Market Level of Activity'],
 
-    #Price Level and Interest Rates
+    # Fed's Tools
+    'DFF': ['Daily EFF rate'], 'FEDTARRM': ['EFF Midpoint Projection'],
+    'T20YIEM':  ['20 yr CPI'], 'EFFR': ['Median EFFR'],
+    'INTDSRUSM193N': ["Fed's Discount Rate"], 'IORR': ['% on Required Reserves'], 'IOER': ['% on Excess Reserves'],
+    'RPONAGYD': ['Repos Purchased $B'], 'RRPONTSYD': ['Repos Sold $B'],
+    'DGS30': ['30 Year %'], 'DGS10': ['10 Year %'], 'DGS2': ['2 Year %'],
+    'RESPPLLDTXAWXCH52NWW': ['Weekly Net Change in General Account $M'],
 
+    #Inflation
+    'USACPIALLMINMEI': ['Inflation level'], 'PPIACO': ['PPI Level'], 'PCEC96': ['Real PCE Level'],
+    'DSPIC96': ['Real Disposable Income $B']
 }
 
 # Helper Functions
@@ -52,16 +61,18 @@ def show_chart(df):
 
 major_selection = st.sidebar.selectbox(
     'Explore Indicators for:',
-    ('Overall Economic Activity', 'Labor Market', 'Price Level and Interest Rates')
+    ('Overall Economic Activity', 'Labor Market',
+     "Fed's Tools", "Inflation")
 )
 
-start_date = st.sidebar.date_input('START Date', datetime(1,1,20))
+start_date = st.sidebar.date_input('START Date')
 end_date = st.sidebar.date_input('END Date')
 date_condition = start_date < end_date
 
 if major_selection == 'Overall Economic Activity':
     st.header('Overall Economic Activity')
-
+    st.info("An Indicator's chart may not be available because \n"
+            "data has not been released for the specified time frame.")
     st.subheader('Gross Domestic Product (GDP)')
     gdp = to_df('GDPC1', start_date, end_date)
     show_chart(gdp)
@@ -305,13 +316,84 @@ if major_selection == 'Labor Market':
     show_chart(kc)
     st.write('Updates Monthly')
 
+if major_selection == "Fed's Tools":
+    st.header("Interest Rates")
+    st.subheader("Fed's Funds Rate")
+    eff = to_df('DFF', start_date, end_date)
+    show_chart(eff)
+    st.write('Updates Daily')
 
-if major_selection == 'Price Level and Interest Rates':
-    st.header('Price Level and Interest Rates')
-    st.write("Includes the Fed's Tools and Inflation indicators")
-    st.subheader("Federal Reserve's Interest Rates")
-    st.subheader("Federal Reserve's Policy Tools")
-    st.subheader("Yield Curves & Federal Reserve's Balance Sheet")
-    st.subheader('Inflation')
+    st.subheader("FOMC FFR Midpoint Project")
+    eff_proj = to_df('FEDTARRM', start_date, end_date)
+    show_chart(eff_proj)
+    st.write('Updates Yearly')
 
+    #st.subheader("LIBOR Rates")
 
+    st.subheader('EFFR (Lending Rates between Banks)')
+    effr = to_df('EFFR', start_date, end_date)
+    show_chart(effr)
+    st.write('Updates Daily')
+
+    st.subheader('Discount Rate')
+    discount = to_df('INTDSRUSM193N', start_date, end_date)
+    show_chart(discount)
+    st.write('Updates Monthly')
+
+    st.subheader('IR on Required Reserves')
+    ir_rr = to_df('IORR', start_date, end_date)
+    show_chart(ir_rr)
+    st.write('Updates Daily')
+
+    st.subheader('IR on Excess Reserves')
+    ir_er = to_df('IOER', start_date, end_date)
+    show_chart(ir_er)
+    st.write('Updates Daily')
+
+    st.header('Open Market Operations: Purchase and sell Repos')
+    buy_repos = to_df('RPONAGYD', start_date, end_date)
+    sell_repos = to_df('RRPONTSYD', start_date, end_date)
+    repos = pd.concat([buy_repos, sell_repos], axis = 1)
+    show_chart(repos)
+    st.write('Updates Daily')
+
+    st.header("Yield Curves") #Include checkboxes for 2-20yr rates
+    st.subheader('Treasury Yields')
+    yield_30 = to_df('DGS30', start_date, end_date)
+    yield_10 = to_df('DGS10', start_date, end_date)
+    yield_2 = to_df('DGS2', start_date, end_date)
+    yields = pd.concat([yield_30, yield_10, yield_2], axis=1)
+    show_chart(yields)
+
+    st.header("Fed's Balance Sheet and Holdings")
+    st.subheader('Fed Balance Sheet: Weekly Net Change in General Account')
+    ga_weekly = to_df('RESPPLLDTXAWXCH52NWW', start_date, end_date)
+    show_chart(ga_weekly)
+
+if major_selection == "Inflation":
+    st.header('Inflation')
+
+    st.subheader("Inflation Target from CPI")
+    infl_20 = to_df('T20YIEM', start_date, end_date)
+    show_chart(infl_20)
+    st.write('Updates Monthly')
+
+    st.subheader('CPI based on ALL US Products')
+    cpi = to_df('USACPIALLMINMEI', start_date, end_date)
+    show_chart(cpi)
+    st.write('Updates Monthly')
+
+    st.subheader('PPI based on ALL US Commodities')
+    ppi = to_df('PPIACO', start_date, end_date)
+    show_chart(ppi)
+    st.write('Updates Monthly')
+
+    st.subheader('Real PCE')
+    pce = to_df('PCEC96', start_date, end_date)
+    show_chart(pce)
+    st.write('Updates Monthly')
+
+    st.subheader('Real Disposable Income')
+    r_di = to_df('DSPIC96', start_date, end_date)
+    show_chart(r_di)
+    st.write('Updates Monthly')
