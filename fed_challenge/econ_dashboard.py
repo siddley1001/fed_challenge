@@ -1,9 +1,7 @@
 import os
-from datetime import datetime
 import pandas as pd
 import streamlit as st
 from fredapi import Fred
-
 os.chdir('/Users/vanamsid/quick_py/fed_challenge')
 
 KEY = 'dde5ad634e39b6e288c9a2ebec181e58'
