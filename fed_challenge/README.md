@@ -5,6 +5,8 @@
 - Develop a Web App with Streamlit for end users to explore and gain insight on
 - Help my Fed Challenge team gain insight on different parts of the economy for unique Policy Proposals
 
+Explore the web app here: https://share.streamlit.io/siddley1001/fed_challenge/fed_challenge/econ_dashboard.py
+
 ## Understanding our Economy from 3 Angles:
   ## 1. **Overall Economic Activity**: 
       - Total GDP:
