@@ -55,5 +55,6 @@
 # Streamlit WebApp Demo Coming Soon! ![](https://cdn-images-1.medium.com/max/1024/1*u9U3YjxT9c9A1FIaDMonHw.png)
 - App is Deployed and Hosted by the Streamlit service
     - Run the app from terminal after forking with: `streamlit run econ_dashboard.py`
+    - Can also follow the link here: https://share.streamlit.io/siddley1001/fed_challenge/fed_challenge/econ_dashboard.py
 
 
